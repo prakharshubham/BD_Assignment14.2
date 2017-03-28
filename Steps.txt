@@ -1,0 +1,19 @@
+1)
+select full_date, temperature from demo_temp where zip<399999 and zip>300000;
+
+2)
+select substr(full_date,7,10), max(temp) from demo_temp group by substr(full_date,7,10);
+
+3)
+select substr(full_date,7,10), max(temperature) from demo_temp group by substr(full_date,7,10) having count(*) >= 2;
+
+4)
+ create view temp_data_vw as
+    > select substr(full_date,7,10), max(temperature) from demo_temp group by substr(full_date,7,10) having count(*) >= 2;
+
+5)
+INSERT OVERWRITE LOCAL DIRECTORY '/home/acadgild/hive/'
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '|'
+STORED AS TEXTFILE
+SELECT * FROM temp_data_vw;
